@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permissions": [
+    // Anything outside the project root (workspace): always ask first.
+    // Covers read/edit/write/patch and shell-outside directory inference.
+    // Change to "deny" for a hard block with no prompt.
+    { "action": "external_directory", "resource": "*", "effect": "ask" },
+
+    // Mutating files inside the project: ask before write/edit/patch.
+    { "action": "edit", "resource": "*", "effect": "ask" },
+
+    // Shell: ask by default, allow safe read-only inspection, block dangerous ones.
+    // Order matters: the LAST matching rule wins.
+    { "action": "shell", "resource": "*", "effect": "ask" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "git diff *", "effect": "allow" },
+    { "action": "shell", "resource": "git log *", "effect": "allow" },
+    { "action": "shell", "resource": "git push *", "effect": "deny" },
+    { "action": "shell", "resource": "rm -rf *", "effect": "deny" }
+  ]
+}

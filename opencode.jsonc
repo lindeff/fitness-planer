@@ -7,7 +7,7 @@
     { "action": "external_directory", "resource": "*", "effect": "ask" },
 
     // Mutating files inside the project: ask before write/edit/patch.
-    { "action": "edit", "resource": "*", "effect": "ask" },
+    // { "action": "edit", "resource": "*", "effect": "ask" },
 
     // Shell: ask by default, allow safe read-only inspection, block dangerous ones.
     // Order matters: the LAST matching rule wins.

@@ -1,0 +1,67 @@
+{
+  "catalog": "predefined-exercises",
+  "version": 1,
+  "note": "Stable UUIDs so plan templates can reference these rows later. Field names match the generated Exercise DTO (see openapi.yaml).",
+  "exercises": [
+    { "id": "1a2b3c40-1111-4e5f-8a9b-000000000001", "name": "Barbell Bench Press",          "muscleGroup": "CHEST",       "defaultSets": 4, "defaultTargetRepetitions": 8 },
+    { "id": "1a2b3c40-1111-4e5f-8a9b-000000000002", "name": "Incline Dumbbell Press",       "muscleGroup": "CHEST",       "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-1111-4e5f-8a9b-000000000003", "name": "Cable Fly",                   "muscleGroup": "CHEST",       "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-1111-4e5f-8a9b-000000000004", "name": "Push-Up",                     "muscleGroup": "CHEST",       "defaultSets": 3, "defaultTargetRepetitions": 15 },
+    { "id": "1a2b3c40-1111-4e5f-8a9b-000000000005", "name": "Machine Chest Press",         "muscleGroup": "CHEST",       "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-1111-4e5f-8a9b-000000000006", "name": "Dip (Chest Focus)",           "muscleGroup": "CHEST",       "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-1111-4e5f-8a9b-000000000007", "name": "Landmine Press",              "muscleGroup": "CHEST",       "defaultSets": 3, "defaultTargetRepetitions": 10 },
+
+    { "id": "1a2b3c40-2222-4e5f-8a9b-000000000001", "name": "Barbell Deadlift",            "muscleGroup": "BACK",        "defaultSets": 3, "defaultTargetRepetitions": 5 },
+    { "id": "1a2b3c40-2222-4e5f-8a9b-000000000002", "name": "Barbell Row",                 "muscleGroup": "BACK",        "defaultSets": 4, "defaultTargetRepetitions": 8 },
+    { "id": "1a2b3c40-2222-4e5f-8a9b-000000000003", "name": "Lat Pulldown",                "muscleGroup": "BACK",        "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-2222-4e5f-8a9b-000000000004", "name": "Pull-Up",                     "muscleGroup": "BACK",        "defaultSets": 3, "defaultTargetRepetitions": 8 },
+    { "id": "1a2b3c40-2222-4e5f-8a9b-000000000005", "name": "Seated Cable Row",            "muscleGroup": "BACK",        "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-2222-4e5f-8a9b-000000000006", "name": "T-Bar Row",                   "muscleGroup": "BACK",        "defaultSets": 3, "defaultTargetRepetitions": 8 },
+    { "id": "1a2b3c40-2222-4e5f-8a9b-000000000007", "name": "Straight-Arm Pulldown",       "muscleGroup": "BACK",        "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-2222-4e5f-8a9b-000000000008", "name": "Dumbbell Single-Arm Row",     "muscleGroup": "BACK",        "defaultSets": 3, "defaultTargetRepetitions": 10 },
+
+    { "id": "1a2b3c40-3333-4e5f-8a9b-000000000001", "name": "Barbell Overhead Press",      "muscleGroup": "SHOULDERS",   "defaultSets": 4, "defaultTargetRepetitions": 8 },
+    { "id": "1a2b3c40-3333-4e5f-8a9b-000000000002", "name": "Dumbbell Shoulder Press",     "muscleGroup": "SHOULDERS",   "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-3333-4e5f-8a9b-000000000003", "name": "Dumbbell Lateral Raise",      "muscleGroup": "SHOULDERS",   "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-3333-4e5f-8a9b-000000000004", "name": "Cable Lateral Raise",         "muscleGroup": "SHOULDERS",   "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-3333-4e5f-8a9b-000000000005", "name": "Rear Delt Cable Fly",         "muscleGroup": "SHOULDERS",   "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-3333-4e5f-8a9b-000000000006", "name": "Arnold Press",               "muscleGroup": "SHOULDERS",   "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-3333-4e5f-8a9b-000000000007", "name": "Face Pull",                   "muscleGroup": "SHOULDERS",   "defaultSets": 3, "defaultTargetRepetitions": 15 },
+
+    { "id": "1a2b3c40-4444-4e5f-8a9b-000000000001", "name": "Barbell Curl",                "muscleGroup": "BICEPS",      "defaultSets": 3, "defaultTargetRepetitions": 8 },
+    { "id": "1a2b3c40-4444-4e5f-8a9b-000000000002", "name": "Dumbbell Hammer Curl",        "muscleGroup": "BICEPS",      "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-4444-4e5f-8a9b-000000000003", "name": "Cable Curl",                  "muscleGroup": "BICEPS",      "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-4444-4e5f-8a9b-000000000004", "name": "Incline Dumbbell Curl",       "muscleGroup": "BICEPS",      "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-4444-4e5f-8a9b-000000000005", "name": "Preacher Curl",               "muscleGroup": "BICEPS",      "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-4444-4e5f-8a9b-000000000006", "name": "Chin-Up",                     "muscleGroup": "BICEPS",      "defaultSets": 3, "defaultTargetRepetitions": 8 },
+
+    { "id": "1a2b3c40-5555-4e5f-8a9b-000000000001", "name": "Tricep Rope Pushdown",        "muscleGroup": "TRICEPS",     "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-5555-4e5f-8a9b-000000000002", "name": "EZ-Bar Skull Crusher",        "muscleGroup": "TRICEPS",     "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-5555-4e5f-8a9b-000000000003", "name": "Overhead Tricep Extension",   "muscleGroup": "TRICEPS",     "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-5555-4e5f-8a9b-000000000004", "name": "Close-Grip Bench Press",      "muscleGroup": "TRICEPS",     "defaultSets": 3, "defaultTargetRepetitions": 8 },
+    { "id": "1a2b3c40-5555-4e5f-8a9b-000000000005", "name": "Tricep Dip",                  "muscleGroup": "TRICEPS",     "defaultSets": 3, "defaultTargetRepetitions": 10 },
+
+    { "id": "1a2b3c40-6666-4e5f-8a9b-000000000001", "name": "Barbell Back Squat",          "muscleGroup": "LEGS",        "defaultSets": 4, "defaultTargetRepetitions": 6 },
+    { "id": "1a2b3c40-6666-4e5f-8a9b-000000000002", "name": "Leg Press",                   "muscleGroup": "LEGS",        "defaultSets": 4, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-6666-4e5f-8a9b-000000000003", "name": "Romanian Deadlift",           "muscleGroup": "LEGS",        "defaultSets": 3, "defaultTargetRepetitions": 8 },
+    { "id": "1a2b3c40-6666-4e5f-8a9b-000000000004", "name": "Bulgarian Split Squat",       "muscleGroup": "LEGS",        "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-6666-4e5f-8a9b-000000000005", "name": "Leg Curl",                   "muscleGroup": "LEGS",        "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-6666-4e5f-8a9b-000000000006", "name": "Leg Extension",              "muscleGroup": "LEGS",        "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-6666-4e5f-8a9b-000000000007", "name": "Standing Calf Raise",        "muscleGroup": "LEGS",        "defaultSets": 4, "defaultTargetRepetitions": 15 },
+    { "id": "1a2b3c40-6666-4e5f-8a9b-000000000008", "name": "Hip Thrust",                  "muscleGroup": "LEGS",        "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-6666-4e5f-8a9b-000000000009", "name": "Walking Lunge",              "muscleGroup": "LEGS",        "defaultSets": 3, "defaultTargetRepetitions": 12 },
+
+    { "id": "1a2b3c40-7777-4e5f-8a9b-000000000001", "name": "Plank",                       "muscleGroup": "CORE",        "defaultSets": 3, "defaultTargetRepetitions": 1 },
+    { "id": "1a2b3c40-7777-4e5f-8a9b-000000000002", "name": "Hanging Leg Raise",           "muscleGroup": "CORE",        "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-7777-4e5f-8a9b-000000000003", "name": "Ab Wheel Rollout",            "muscleGroup": "CORE",        "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-7777-4e5f-8a9b-000000000004", "name": "Cable Crunch",               "muscleGroup": "CORE",        "defaultSets": 3, "defaultTargetRepetitions": 12 },
+    { "id": "1a2b3c40-7777-4e5f-8a9b-000000000005", "name": "Weighted Russian Twist",      "muscleGroup": "CORE",        "defaultSets": 3, "defaultTargetRepetitions": 20 },
+    { "id": "1a2b3c40-7777-4e5f-8a9b-000000000006", "name": "Side Plank",                  "muscleGroup": "CORE",        "defaultSets": 3, "defaultTargetRepetitions": 1 },
+
+    { "id": "1a2b3c40-8888-4e5f-8a9b-000000000001", "name": "Kettlebell Swing",            "muscleGroup": "FULL_BODY",   "defaultSets": 4, "defaultTargetRepetitions": 15 },
+    { "id": "1a2b3c40-8888-4e5f-8a9b-000000000002", "name": "Burpee",                      "muscleGroup": "FULL_BODY",   "defaultSets": 3, "defaultTargetRepetitions": 10 },
+    { "id": "1a2b3c40-8888-4e5f-8a9b-000000000003", "name": "Power Clean",                 "muscleGroup": "FULL_BODY",   "defaultSets": 4, "defaultTargetRepetitions": 5 },
+    { "id": "1a2b3c40-8888-4e5f-8a9b-000000000004", "name": "Thruster",                    "muscleGroup": "FULL_BODY",   "defaultSets": 4, "defaultTargetRepetitions": 8 },
+    { "id": "1a2b3c40-8888-4e5f-8a9b-000000000005", "name": "Farmer's Walk",               "muscleGroup": "FULL_BODY",   "defaultSets": 3, "defaultTargetRepetitions": 1 }
+  ]
+}

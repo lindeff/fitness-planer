@@ -25,9 +25,9 @@ class WorkoutPlanEntity(
 
     /**
      * Unidirectional one-to-many with a shared join column;
-     * cascade + orphanRemoval so exercises live and die with their plan.
+     * cascade + orphanRemoval so membership rows live and die with their plan.
      */
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "plan_id")
-    val exercises: MutableList<ExerciseEntity> = mutableListOf(),
+    val exercises: MutableList<PlanExerciseEntity> = mutableListOf(),
 )

@@ -27,6 +27,10 @@ class LoggedExerciseEntity(
     @Column(name = "muscle_group")
     var muscleGroup: MuscleGroup? = null,
 
+    /** Reference to the catalog exercise this logged exercise came from (optional). */
+    @Column(name = "exercise_id")
+    val exerciseId: UUID? = null,
+
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "logged_exercise_id")
     val sets: MutableList<RecordedSetEntity> = mutableListOf(),

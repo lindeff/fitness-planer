@@ -2,13 +2,52 @@ openapi: 3.0.3
 info:
   title: Fitness Plan Manager API
   description: API for managing workout plans, exercise catalogs, and logging user workout sessions.
-  version: 1.0.0
+  version: 1.0.1
 
 servers:
   - url: http://localhost:8080/api/v1
     description: Local Development Server
 
 paths:
+  /exercises:
+    get:
+      tags:
+        - exercises
+      summary: Retrieve the predefined exercise catalog
+      operationId: getExercises
+      responses:
+        '200':
+          description: Successfully retrieved exercise catalog
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Exercise'
+
+  /exercises/{id}:
+    get:
+      tags:
+        - exercises
+      summary: Retrieve a specific exercise from the catalog
+      operationId: getExerciseById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Exercise details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exercise'
+        '404':
+          description: Exercise not found
+
   /workout-plans:
     get:
       tags:
@@ -29,6 +68,7 @@ paths:
       tags:
         - workout-plans
       summary: Create a new workout plan
+      description: Exercises are selected from the predefined catalog via exerciseId. Omitted sets/repetitions default to the catalog values.
       operationId: createWorkoutPlan
       requestBody:
         required: true
@@ -43,6 +83,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkoutPlanResponse'
+        '400':
+          description: One or more exerciseIds do not exist in the catalog
 
   /workout-plans/{id}:
     get:
@@ -66,6 +108,30 @@ paths:
                 $ref: '#/components/schemas/WorkoutPlanResponse'
         '404':
           description: Workout plan not found
+
+  /workout-plans/{id}/last-session:
+    get:
+      tags:
+        - workout-sessions
+      summary: Load statistics from the last session logged for this plan
+      description: Returns the most recent workout session for this plan with per-exercise statistics, so a new session can be prefilled with the previous weights and repetitions.
+      operationId: getPlanLastSession
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Statistics of the most recent session for this plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LastSessionResponse'
+        '404':
+          description: No session has been logged for this plan yet
 
   /workout-sessions:
     post:
@@ -105,16 +171,69 @@ components:
         - FULL_BODY
 
     # ----------------------------------------------------
-    # WORKOUT PLAN SCHEMAS (Templates)
+    # EXERCISE CATALOG (predefined, selectable)
     # ----------------------------------------------------
     Exercise:
       type: object
       required:
+        - id
         - name
       properties:
+        id:
+          type: string
+          format: uuid
+          example: "1a2b3c40-1111-4e5f-8a9b-000000000001"
         name:
           type: string
           example: "Bench Press"
+        muscleGroup:
+          $ref: '#/components/schemas/MuscleGroup'
+        sets:
+          type: integer
+          minimum: 1
+          description: Suggested number of sets
+          example: 4
+        targetRepetitions:
+          type: integer
+          minimum: 1
+          description: Suggested repetitions per set
+          example: 8
+
+    # Plan-level selection of a catalog exercise
+    ExerciseSelection:
+      type: object
+      required:
+        - exerciseId
+      properties:
+        exerciseId:
+          type: string
+          format: uuid
+          example: "1a2b3c40-1111-4e5f-8a9b-000000000001"
+        sets:
+          type: integer
+          minimum: 1
+          description: Overrides the catalog default
+          example: 4
+        targetRepetitions:
+          type: integer
+          minimum: 1
+          description: Overrides the catalog default
+          example: 8
+
+    # A selected exercise as part of a plan
+    PlanExercise:
+      type: object
+      required:
+        - exerciseId
+        - name
+      properties:
+        exerciseId:
+          type: string
+          format: uuid
+          example: "1a2b3c40-1111-4e5f-8a9b-000000000001"
+        name:
+          type: string
+          example: "Barbell Bench Press"
         muscleGroup:
           $ref: '#/components/schemas/MuscleGroup'
         sets:
@@ -126,6 +245,9 @@ components:
           minimum: 1
           example: 8
 
+    # ----------------------------------------------------
+    # WORKOUT PLAN SCHEMAS (Templates)
+    # ----------------------------------------------------
     WorkoutPlanRequest:
       type: object
       required:
@@ -141,7 +263,7 @@ components:
         exercises:
           type: array
           items:
-            $ref: '#/components/schemas/Exercise'
+            $ref: '#/components/schemas/ExerciseSelection'
 
     WorkoutPlanResponse:
       type: object
@@ -163,7 +285,7 @@ components:
         exercises:
           type: array
           items:
-            $ref: '#/components/schemas/Exercise'
+            $ref: '#/components/schemas/PlanExercise'
 
     # ----------------------------------------------------
     # WORKOUT SESSION SCHEMAS (Logged workouts)
@@ -188,6 +310,10 @@ components:
       required:
         - name
       properties:
+        exerciseId:
+          type: string
+          format: uuid
+          example: "1a2b3c40-1111-4e5f-8a9b-000000000001"
         name:
           type: string
           example: "Bench Press"
@@ -197,6 +323,56 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RecordedSet'
+
+    LastSessionExercise:
+      type: object
+      required:
+        - name
+        - sets
+      properties:
+        exerciseId:
+          type: string
+          format: uuid
+          example: "1a2b3c40-1111-4e5f-8a9b-000000000001"
+        name:
+          type: string
+          example: "Bench Press"
+        muscleGroup:
+          $ref: '#/components/schemas/MuscleGroup'
+        sets:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordedSet'
+        maxWeightKg:
+          type: number
+          format: double
+          description: Weight of the heaviest set, null when only reps were logged
+          example: 62.5
+
+    LastSessionResponse:
+      type: object
+      required:
+        - sessionId
+        - planId
+        - date
+        - exercises
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+          example: "a1b2c3d4-e5f6-4a7b-8c9d-0123456789ab"
+        planId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        date:
+          type: string
+          format: date
+          example: "2026-11-03"
+        exercises:
+          type: array
+          items:
+            $ref: '#/components/schemas/LastSessionExercise'
 
     WorkoutSessionRequest:
       type: object

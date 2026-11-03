@@ -9,6 +9,7 @@ import jakarta.persistence.Table
 import org.example.dto.MuscleGroup
 import java.util.UUID
 
+/** Standalone, predefined exercise (the catalog users select from). */
 @Entity
 @Table(name = "exercise")
 class ExerciseEntity(

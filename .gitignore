@@ -10,6 +10,31 @@ target/
 *.iml
 *.ipr
 
+# IDE user state / machine-local files (not for commits)
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/**/caches/
+.idea/**/attachments/
+.idea/**/contentModel.xml
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+.idea/**/gradle.xml
+.idea/**/aws.xml
+.idea/**/discord.xml
+.idea/**/copilot_chat_diff.xml
+.idea/**/copilot_diff.xml
+.idea/**/httpRequests
+.idea/**/httpCookies
+.idea/**/sonarlint/
+
 ### Eclipse ###
 .apt_generated
 .classpath

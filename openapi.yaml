@@ -1,0 +1,244 @@
+openapi: 3.0.3
+info:
+  title: Fitness Plan Manager API
+  description: API for managing workout plans, exercise catalogs, and logging user workout sessions.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Local Development Server
+
+paths:
+  /workout-plans:
+    get:
+      tags:
+        - workout-plans
+      summary: Retrieve all workout plans
+      operationId: getWorkoutPlans
+      responses:
+        '200':
+          description: Successfully retrieved workout plans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkoutPlanResponse'
+
+    post:
+      tags:
+        - workout-plans
+      summary: Create a new workout plan
+      operationId: createWorkoutPlan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkoutPlanRequest'
+      responses:
+        '201':
+          description: Workout plan successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkoutPlanResponse'
+
+  /workout-plans/{id}:
+    get:
+      tags:
+        - workout-plans
+      summary: Retrieve a specific workout plan by ID
+      operationId: getWorkoutPlanById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Workout plan details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkoutPlanResponse'
+        '404':
+          description: Workout plan not found
+
+  /workout-sessions:
+    post:
+      tags:
+        - workout-sessions
+      summary: Log a completed workout session
+      operationId: logWorkoutSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkoutSessionRequest'
+      responses:
+        '201':
+          description: Workout session successfully logged
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkoutSessionResponse'
+
+components:
+  schemas:
+    # ----------------------------------------------------
+    # SHARED ENUMS
+    # ----------------------------------------------------
+    MuscleGroup:
+      type: string
+      enum:
+        - CHEST
+        - BACK
+        - SHOULDERS
+        - BICEPS
+        - TRICEPS
+        - LEGS
+        - CORE
+        - FULL_BODY
+
+    # ----------------------------------------------------
+    # WORKOUT PLAN SCHEMAS (Templates)
+    # ----------------------------------------------------
+    Exercise:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "Bench Press"
+        muscleGroup:
+          $ref: '#/components/schemas/MuscleGroup'
+        sets:
+          type: integer
+          minimum: 1
+          example: 4
+        targetRepetitions:
+          type: integer
+          minimum: 1
+          example: 8
+
+    WorkoutPlanRequest:
+      type: object
+      required:
+        - name
+        - exercises
+      properties:
+        name:
+          type: string
+          example: "Push Day A"
+        description:
+          type: string
+          example: "Chest, shoulders, and triceps focus"
+        exercises:
+          type: array
+          items:
+            $ref: '#/components/schemas/Exercise'
+
+    WorkoutPlanResponse:
+      type: object
+      required:
+        - id
+        - name
+        - exercises
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        name:
+          type: string
+          example: "Push Day A"
+        description:
+          type: string
+          example: "Chest, shoulders, and triceps focus"
+        exercises:
+          type: array
+          items:
+            $ref: '#/components/schemas/Exercise'
+
+    # ----------------------------------------------------
+    # WORKOUT SESSION SCHEMAS (Logged workouts)
+    # ----------------------------------------------------
+    RecordedSet:
+      type: object
+      required:
+        - repetitions
+      properties:
+        weightKg:
+          type: number
+          format: double
+          minimum: 0
+          example: 60.0
+        repetitions:
+          type: integer
+          minimum: 1
+          example: 8
+
+    LoggedExercise:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "Bench Press"
+        muscleGroup:
+          $ref: '#/components/schemas/MuscleGroup'
+        sets:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordedSet'
+
+    WorkoutSessionRequest:
+      type: object
+      required:
+        - planId
+        - date
+        - exercises
+      properties:
+        planId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        date:
+          type: string
+          format: date
+          example: "2026-11-03"
+        exercises:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoggedExercise'
+
+    WorkoutSessionResponse:
+      type: object
+      required:
+        - id
+        - planId
+        - date
+        - exercises
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "a1b2c3d4-e5f6-4a7b-8c9d-0123456789ab"
+        planId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        date:
+          type: string
+          format: date
+          example: "2026-11-03"
+        exercises:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoggedExercise'

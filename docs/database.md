@@ -41,6 +41,7 @@ erDiagram
         varchar name "NOT NULL"
         varchar muscle_group "NULL, enum as string"
         uuid session_id FK "workout_session"
+        uuid exercise_id "NULL, value ref, no FK"
     }
     RECORDED_SET {
         uuid id PK
@@ -101,6 +102,7 @@ An exercise actually performed during a session.
 | `name`         | `varchar` | `NOT NULL`                             |
 | `muscle_group` | `varchar` | nullable, `MuscleGroup` enum as string |
 | `session_id`   | `uuid`    | FK → `workout_session.id`, `NOT NULL` |
+| `exercise_id`  | `uuid`    | nullable — references the catalog exercise by value, **no FK** |
 
 ### `recorded_set`
 One performed set (reps + weight).
@@ -120,6 +122,7 @@ One performed set (reps + weight).
 | `exercise` → `plan_exercise`        | 1 : n       | `@ManyToOne` on the membership row (`exercise_id`)                                         |
 | `workout_plan` ⇢ `workout_session`  | 1 : n       | Plain UUID reference (`plan_id`) — sessions survive plan template edits/deletes            |
 | `workout_session` → `logged_exercise` | 1 : n     | Unidirectional `@OneToMany`, cascade ALL + orphanRemoval                                  |
+| `exercise` ⇢ `logged_exercise`      | 1 : n       | Plain UUID reference (`exercise_id`) — logged exercises survive catalog edits/deletes      |
 | `logged_exercise` → `recorded_set`  | 1 : n       | Same pattern                                                                              |
 
 ## Enum values (`muscle_group`)
@@ -133,4 +136,4 @@ Stored as strings (`@Enumerated(EnumType.STRING)`) — order-tolerant and stable
 - Schema is currently created/updated by Hibernate (`ddl-auto=update`).
 - For PostgreSQL later, switch to `ddl-auto=validate` + a migration tool like Flyway/Liquibase; `uuid` types and the shared join columns are PostgreSQL-ready.
 - Deleting a plan deletes its `plan_exercise` membership rows (orphan removal), but **never touches the catalog itself** (`exercise` rows are shared).
-- Child rows of sessions are deleted with their parent (orphan removal).
+- Child rows of sessions are deleted with their parent (orphan removal). A logged exercise's `exercise_id` is a soft reference: it points back to the catalog exercise it was picked from, but becomes stale (not deleted) when that catalog exercise is removed.

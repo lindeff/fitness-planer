@@ -1,8 +1,8 @@
 import { Component, OnDestroy, inject, signal } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
-import { ExerciseApi } from './exercise-api';
-import { Exercise } from './exercise.model';
+import { ExercisesService } from '../api-client/api/exercises.service';
+import { Exercise } from '../api-client/model/exercise';
 
 @Component({
   selector: 'app-exercise-catalog',
@@ -67,7 +67,7 @@ import { Exercise } from './exercise.model';
   `,
 })
 export class ExerciseCatalog implements OnDestroy {
-  private readonly api = inject(ExerciseApi);
+  private readonly api = inject(ExercisesService);
   private readonly destroy$ = new Subject<void>();
 
   protected readonly exercises = signal<Exercise[]>([]);

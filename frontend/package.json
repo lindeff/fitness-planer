@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate:api": "openapi-generator-cli generate -i ../openapi.yaml -g typescript-angular -o src/app/api-client --additional-properties=stringEnums=true"
+    "generate:api": "openapi-generator-cli generate -i ../openapi.yaml -g typescript-angular -o src/app/api-client --additional-properties=stringEnums=true",
+    "postinstall": "npm run generate:api"
   },
   "prettier": {
     "overrides": [
